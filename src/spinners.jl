@@ -2,87 +2,87 @@
 
 const FORMATS = Dict(
       :classic => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["|", "/", "-", "\\"]
       ),
       :spin => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["◴", "◷", "◶", "◵"]
       ),
       :spin_2 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["◐" "◓" "◑" "◒"]
       ),
       :spin_3 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["◰", "◳", "◲", "◱"]
       ),
       :spin_4 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["╫, ╪"]
       ),
       :pulse => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⎺", "⎻", "⎼", "⎽", "⎼", "⎻"]
       ),
       :pulse_2 => Dict(
-        :interval => 15,
+        :frequency => 15,
         :frames => ["▁", "▃", "▅", "▆", "▇", "█", "▇", "▆", "▅", "▃"]
       ),
       :pulse_3 => Dict(
-        :interval => 20,
+        :frequency => 20,
         :frames => ["▉", "▊", "▋", "▌", "▍", "▎", "▏", "▎", "▍", "▌", "▋", "▊", "▉"]
       ),
       :dots => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
       ),
       :dots_2 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"]
       ),
       :dots_3 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠋", "⠙", "⠚", "⠞", "⠖", "⠦", "⠴", "⠲", "⠳", "⠓"]
       ),
       :dots_4 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠄", "⠆", "⠇", "⠋", "⠙", "⠸", "⠰", "⠠", "⠰", "⠸", "⠙", "⠋", "⠇", "⠆"]
       ),
       :dots_5 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠋", "⠙", "⠚", "⠒", "⠂", "⠂", "⠒", "⠲", "⠴", "⠦", "⠖", "⠒", "⠐", "⠐", "⠒", "⠓", "⠋"]
       ),
       :dots_6 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠁", "⠉", "⠙", "⠚", "⠒", "⠂", "⠂", "⠒", "⠲", "⠴", "⠤", "⠄", "⠄", "⠤", "⠴", "⠲", "⠒", "⠂", "⠂", "⠒", "⠚", "⠙", "⠉", "⠁"]
       ),
       :dots_7 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠈", "⠉", "⠋", "⠓", "⠒", "⠐", "⠐", "⠒", "⠖", "⠦", "⠤", "⠠", "⠠", "⠤", "⠦", "⠖", "⠒", "⠐", "⠐", "⠒", "⠓", "⠋", "⠉", "⠈"]
       ),
       :dots_8 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠁", "⠁", "⠉", "⠙", "⠚", "⠒", "⠂", "⠂", "⠒", "⠲", "⠴", "⠤", "⠄", "⠄", "⠤", "⠠", "⠠", "⠤", "⠦", "⠖", "⠒", "⠐", "⠐", "⠒", "⠓", "⠋", "⠉", "⠈", "⠈"]
       ),
       :dots_9 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⢹", "⢺", "⢼", "⣸", "⣇", "⡧", "⡗", "⡏"]
       ),
       :dots_10 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⢄", "⢂", "⢁", "⡁", "⡈", "⡐", "⡠"]
       ),
       :dots_11 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠁", "⠂", "⠄", "⡀", "⢀", "⠠", "⠐", "⠈"]
       ),
       :arrow => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["←", "↖", "↑", "↗", "→", "↘", "↓", "↙"]
       ),
       :arrow_pulse => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => [
           "▹▹▹▹▹",
           "▸▹▹▹▹",
@@ -93,19 +93,19 @@ const FORMATS = Dict(
         ]
       ),
       :triangle => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["◢", "◣", "◤", "◥"]
       ),
       :arc => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["◜", "◠", "◝", "◞", "◡", "◟"]
       ),
       :pipe => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["┤", "┘", "┴", "└", "├", "┌", "┬", "┐"]
       ),
       :bouncing => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => [
           "[    ]",
           "[   =]",
@@ -118,7 +118,7 @@ const FORMATS = Dict(
         ]
       ),
       :bouncing_ball => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => [
           "( ●    )",
           "(  ●   )",
@@ -133,47 +133,47 @@ const FORMATS = Dict(
         ]
       ),
       :bounce => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["⠁", "⠂", "⠄", "⠂"]
       ),
       :box_bounce => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["▌", "▀", "▐", "▄", ""]
       ),
       :box_bounce_2 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["▖", "▘", "▝", "▗"]
       ),
       :star => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["✶", "✸", "✹", "✺", "✹", "✷"]
       ),
       :toggle => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["■", "□", "▪", "▫"]
       ),
       :balloon => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["", ".", "o", "O", "@", "*"]
       ),
       :balloon_2 => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => [".", "o", "O", "°", "O", "o", "."]
       ),
       :flip => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => ["-", "◡", "⊙", "-", "◠"]
       ),
       :burger => Dict(
-        :interval => 6,
+        :frequency => 6,
         :frames => ["☱", "☲", "☴"]
       ),
       :dance => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => [">))'>", " >))'>", "  >))'>", "   >))'>", "    >))'>", "   <'((<", "  <'((<", " <'((<"]
       ),
       :shark => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => [
           "▐|\\____________▌",
           "▐_|\\___________▌",
@@ -204,7 +204,7 @@ const FORMATS = Dict(
         ]
       ),
       :pong => Dict(
-        :interval => 10,
+        :frequency => 10,
         :frames => [
           "▐⠂       ▌",
           "▐⠈       ▌",

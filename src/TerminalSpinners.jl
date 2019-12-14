@@ -1,6 +1,6 @@
 module TerminalSpinners
 
-export Spinner, autospin, spin
+export Spinner, autospin, spin!, @spin
 
 ESC = "\e"
 CSI = "\e["
@@ -14,31 +14,33 @@ const TTY_CLEAR_LINE = CSI * "2K"
 
 include("spinners.jl")
 
-# State in spinner or not??
-mutable struct Spinner{IO_t <: IO}
-    frames::Vector{String}
-    interval::Int # Hz
-    stream::IO_t
+mutable struct SpinnerState
     idx::Int
-    msg::Union{String, Nothing}
-    stopped::Bool
 end
+
+struct Spinner{IO_t <: IO}
+    frames::Vector{String}
+    interval::Float64 # [s]
+    stream::IO_t
+    msg::Union{String, Nothing}
+    channel::Channel{Symbol}
+    state::SpinnerState
+end
+
 function Spinner(msg::Union{String, Nothing}=nothing; format::Symbol=:classic, output=stderr)
     format = get(FORMATS, format, nothing)
     format == nothing && error("unknown format :$format")
-    frames, interval = format[:frames], format[:interval]
-    return Spinner(frames, interval, output, 1, msg, false)
+    frames, frequency = format[:frames], format[:frequency]
+    return Spinner(frames, 1/frequency, output, msg, Channel{Symbol}(1), SpinnerState(1))
 end
-
-stop!(s::Spinner) = (s.stopped = true)
 
 const SPINNER_TOKEN = ":spinner"
 
-function spin(s::Spinner)
-    s.idx += 1
-    s.idx > length(s.frames) && (s.idx = 1)
+function spin!(s::Spinner)
+    s.state.idx += 1
+    s.state.idx > length(s.frames) && (s.state.idx = 1)
     print(s.stream, "\r")
-    v = s.frames[s.idx]
+    v = s.frames[s.state.idx]
     if s.msg === nothing
         print(s.stream, v)
     else
@@ -47,25 +49,48 @@ function spin(s::Spinner)
     return
 end
 
-autospin(s::Spinner) = Threads.@spawn _autospin(s)
-
 function _autospin(s::Spinner)
     while true
-        spin(s)
-        s.stopped && break
-        # Assume the previous commands are instant
-        sleep(1 / s.interval)
+        t = @elapsed begin
+            if isready(s.channel)
+                should_stop = handle_command(s.channel)
+                should_stop && break
+            end
+            spin!(s)
+        end
+        sleep_time = max(0, s.interval - t)
+        sleep(sleep_time)
     end
 end
 
+autospin(s::Spinner) = Threads.@spawn _autospin(s)
+
+function handle_command(c::Channel)
+    while true
+        command = take!(c)
+        if command !== :pause && command !== :resume && command !== :stop
+            error("unknown command :$command")
+        end
+        command == :pause && continue
+        command == :resume && return false
+        command == :stop && return true
+    end
+end
+
+pause!(s::Spinner)  = put!(s.channel, :pause)
+resume!(s::Spinner) = put!(s.channel, :resume)
+stop!(s::Spinner)   = put!(s.channel, :stop)
+
 macro spin(spinner, task)
     return quote
-        $(esc(spinner)).stopped=false
-        t = @async autospin($(esc(spinner)))
-        v = $task
-        stop!($(esc(spinner)))
-        wait(t)
-        return v
+        t = autospin($spinner)
+        try 
+            return $task
+        finally
+            stop!($spinner)
+            print($spinner.stream, TTY_SHOW_CURSOR)
+            wait(t)
+        end
     end
 end
 
