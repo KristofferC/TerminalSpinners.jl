@@ -3,6 +3,10 @@ uuid = "30eb84dd-517b-496a-98ca-bc270c08ac37"
 authors = ["KristofferC <kcarlsson89@gmail.com>"]
 version = "0.1.0"
 
+[deps]
+Crayons = "a8cc5b0e-0ffa-5ad4-8c14-923d3ee1735f"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+
 [compat]
 julia = "1"
 
